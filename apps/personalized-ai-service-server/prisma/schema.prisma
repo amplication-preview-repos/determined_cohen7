@@ -1,0 +1,75 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Document {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model ConversationHistory {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model AiResponse {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+model Segment {
+  createdAt   DateTime @default(now())
+  description String?
+  id          String   @id @default(cuid())
+  name        String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Preference {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  name      String?
+  updatedAt DateTime @updatedAt
+  value     Json?
+}
+
+model Context {
+  createdAt DateTime @default(now())
+  data      Json?
+  id        String   @id @default(cuid())
+  typeField String?
+  updatedAt DateTime @updatedAt
+}
+
+model ComputeTask {
+  createdAt DateTime               @default(now())
+  id        String                 @id @default(cuid())
+  result    Json?
+  status    EnumComputeTaskStatus?
+  taskName  String?
+  updatedAt DateTime               @updatedAt
+}
+
+enum EnumComputeTaskStatus {
+  Option1
+}
